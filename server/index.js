@@ -1,5 +1,7 @@
 import express from "express";
 import dotenv from "dotenv";
+import errorMiddleware from "./middleware/errorMiddleware.js";
+import ErrorHandler from "./utils/ErrorHandler.js";
 
 // Initialize environment variables
 dotenv.config();
@@ -22,3 +24,11 @@ app.get("/", (req, res) => {
     message: "Welcome! The server is up and running smoothly.",
   });
 });
+
+// Unknown Route
+app.all("*", (req, res, next) => {
+  return next(new ErrorHandler(`Route ${req.originalUrl} not found`), 404);
+});
+
+// Error Middleware
+app.use(errorMiddleware);
