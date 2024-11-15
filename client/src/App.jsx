@@ -1,7 +1,13 @@
+import DataTable from "./components/DataTable";
+import Pagination from "./components/Pagination";
+import URLInput from "./components/URLInput";
+
 function App() {
   return (
     <>
-      <h1 className="text-3xl font-bold underline">Hello world!</h1>
+      <URLInput />
+      <DataTable />
+      <Pagination />
     </>
   );
 }
