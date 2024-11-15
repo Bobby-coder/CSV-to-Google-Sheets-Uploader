@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import errorMiddleware from "./middleware/errorMiddleware.js";
 import ErrorHandler from "./utils/ErrorHandler.js";
+import { successResponse } from "./utils/successResponse.js";
 
 // Initialize environment variables
 dotenv.config();
@@ -19,10 +20,7 @@ app.listen(PORT, () => {
 
 // Test route
 app.get("/", (req, res) => {
-  res.status(200).json({
-    success: true,
-    message: "Welcome! The server is up and running smoothly.",
-  });
+  successResponse("Welcome! The server is up and running smoothly.", 200, res);
 });
 
 // Unknown Route
