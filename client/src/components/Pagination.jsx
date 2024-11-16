@@ -1,8 +1,5 @@
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setLimit,
-  setPage,
-} from "../store/features/pagination/paginationSlice";
+import { setPage } from "../store/features/pagination/paginationSlice";
 
 const Pagination = () => {
   const { records } = useSelector((state) => state.csvData);
@@ -11,11 +8,6 @@ const Pagination = () => {
 
   // Total pages
   const totalPages = Math.ceil(records.length / limit);
-
-  // Handler to set current page value
-  function handlePage(val) {
-    dispatch(setPage(val));
-  }
 
   // Handler to set previous page value
   function handlePrevious() {
@@ -27,48 +19,34 @@ const Pagination = () => {
     dispatch(setPage(page + 1));
   }
 
-  function handleLimit(val) {
-    dispatch(setLimit(val));
-  }
-
   return (
-    <div>
-      {/*Previous page button*/}
+    <div className="flex justify-center items-center gap-3 my-4">
+      {/* Previous page button */}
       {page > 1 && (
         <span
-          className="p-3 border border-s cursor-pointer"
+          className="px-4 py-2 border border-gray-300 rounded-sm cursor-pointer hover:bg-gray-100"
           onClick={handlePrevious}
         >
           &lt;
         </span>
       )}
 
-      {Array.from({ length: totalPages }).map((_, i) => (
-        <span
-          className="p-3 border border-s cursor-pointer"
-          key={crypto.randomUUID()}
-          onClick={() => handlePage(i + 1)}
-        >
-          {i + 1}
-        </span>
-      ))}
+      <span
+        key={crypto.randomUUID()}
+        className={`px-4 py-2 border rounded-sm cursor-pointer border-gray-300 hover:bg-gray-100`}
+      >
+        {page}
+      </span>
 
-      {/*Next page button*/}
+      {/* Next page button */}
       {page < totalPages && (
         <span
-          className="p-3 border border-s cursor-pointer"
+          className="px-4 py-2 border border-gray-300 rounded-sm cursor-pointer hover:bg-gray-100"
           onClick={handleNext}
         >
           &gt;
         </span>
       )}
-
-      {/*Records per page*/}
-      <select onChange={(e) => handleLimit(e.target.value)}>
-        <option>5</option>
-        <option>10</option>
-        <option>20</option>
-      </select>
     </div>
   );
 };
